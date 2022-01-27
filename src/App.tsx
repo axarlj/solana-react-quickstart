@@ -18,6 +18,7 @@ import {
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
 import MyWallet from "./MyWallet";
+import Square from './square.js';
 
 function App() {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
@@ -40,37 +41,46 @@ function App() {
     [network]
   );
 
+
+  // Create Squares
+  const squares = []
+
+  for(let iy = 0; iy < 100; iy++) {
+    for(let ix = 0; ix < 100; ix++) {
+      squares.push(<Square x={ix} y={iy} color="#09edb8"/>)
+    }
+  }
+
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets}>
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.tsx</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-
-            <a
-              className="App-link"
-              href="https://solana-labs.github.io/solana-web3.js/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Solana Web3 docs
-            </a>
-
-            <MyWallet />
-          </header>
+        <header className="App-header">
+        <div className="App-column">
+          <h1 className="App-logo-text">100<sup> 2</sup></h1>
         </div>
-      </WalletProvider>
+        <div className="App-column">
+          <MyWallet />
+        </div>
+        </header>
+        <div className="App-body">
+          <div className="App-column">
+            <div className="App-grid-container">
+              
+                <svg className="App-svg">
+                  <g id='scene'>
+                    {squares}  
+                  </g>
+                </svg>
+
+            </div>
+          </div>
+          <div className="App-column">
+            <h1 id='location'></h1>
+          </div>
+        </div>
+      </div>
+    </WalletProvider>
     </ConnectionProvider>
   );
 }

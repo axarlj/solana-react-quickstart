@@ -25,19 +25,25 @@ const MyWallet: React.FC = () => {
 
     return (
         <>
-            {wallet.connected &&
-                <p>Your wallet is {walletAddress}</p> ||
-                <p>Hello! Click the button to connect</p>
-            }
-
-            <div className="multi-wrapper">
-                <span className="button-wrapper">
-                    <WalletModalProvider>
-                        <WalletMultiButton />
-                    </WalletModalProvider>
-                </span>
-                {wallet.connected && <WalletDisconnectButton />}
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        {wallet.connected &&
+                            <p className="WalletAddress">{walletAddress}</p>
+                        }
+                    </td>
+                    <td>
+                        <div className="multi-wrapper">
+                            <span className="button-wrapper">
+                                <WalletModalProvider>
+                                    {wallet.connected || <WalletMultiButton />}
+                                </WalletModalProvider>
+                            </span>
+                            {wallet.connected && <WalletDisconnectButton />}
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </>
     );
 };
