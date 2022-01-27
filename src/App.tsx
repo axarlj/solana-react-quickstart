@@ -44,10 +44,15 @@ function App() {
 
   // Create Squares
   const squares = []
-
-  for(let iy = 0; iy < 100; iy++) {
+  
+  for(let iy = 0; iy < 50; iy++) {
     for(let ix = 0; ix < 100; ix++) {
       squares.push(<Square x={ix} y={iy} color="#09edb8"/>)
+    }
+  }
+  for(let iy = 50; iy < 100; iy++) {
+    for(let ix = 0; ix < 100; ix++) {
+      squares.push(<Square x={ix} y={iy} color="#ff8400"/>)
     }
   }
 
