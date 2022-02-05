@@ -67,3 +67,25 @@ p.WalletAddress {
   margin-top: 1vh;
   align-self: center;
 }
+
+div.game-button {
+  flex: 33%;
+  padding: 1 px;
+}
+
+div.flex-container {
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

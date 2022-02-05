@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+
+
+import Button from '@mui/material/Button';
+
 
 import {
   ConnectionProvider,
@@ -19,10 +23,29 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 import MyWallet from "./MyWallet";
 import Square from './square.js';
+import GameContainer from "./GameContainer"
+
+
+
 
 function App() {
+
+
+  const [authStatus, setAuthStatus] = useState(false);
+  const [discordCode, setdiscordCode] = useState("");
+  const [appState, setAppState] = useState("welcome");
+
+   
+
+
+
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
   const network = WalletAdapterNetwork.Mainnet;
+
+  const params = new URLSearchParams(window.location.search)
+  const code = params.get('code')
+  
+
 
   // You can also provide a custom RPC endpoint
   const endpoint = React.useMemo(() => clusterApiUrl(network), [network]);
@@ -42,19 +65,34 @@ function App() {
   );
 
 
+  var currentlySelected = "0000";
+
+  const getLocation = (data: any) => {
+    return <p>{data}</p> 
+  }
+
+  const discordAuth = () => {
+    setAppState("auth");
+    window.location.replace("https://discord.com/api/oauth2/authorize?client_id=939124181130428457&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&response_type=code&scope=identify");
+  }
+
+
+
   // Create Squares
   const squares = []
   
   for(let iy = 0; iy < 50; iy++) {
     for(let ix = 0; ix < 100; ix++) {
-      squares.push(<Square x={ix} y={iy} color="#09edb8"/>)
+      squares.push(<Square x={ix} y={iy} color="#09edb8" onclick={getLocation} func={getLocation}/>)
     }
   }
   for(let iy = 50; iy < 100; iy++) {
     for(let ix = 0; ix < 100; ix++) {
-      squares.push(<Square x={ix} y={iy} color="#ff8400"/>)
+      squares.push(<Square x={ix} y={iy} color="#09edb8" func={getLocation}/>)
     }
   }
+
+
 
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -65,7 +103,7 @@ function App() {
           <h1 className="App-logo-text">100<sup> 2</sup></h1>
         </div>
         <div className="App-column">
-          <MyWallet />
+          {code!==null && <MyWallet />}
         </div>
         </header>
         <div className="App-body">
@@ -82,6 +120,10 @@ function App() {
           </div>
           <div className="App-column">
             <h1 id='location'></h1>
+            {false && <GameContainer />}
+            {code===null && <Button onClick={discordAuth} variant="contained">Login to discord</Button>}
+            {code!==null && <p>Logged in with sesion code: {code}</p>}
+            
           </div>
         </div>
       </div>
