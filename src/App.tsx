@@ -73,7 +73,7 @@ function App() {
 
   const discordAuth = () => {
     setAppState("auth");
-    window.location.replace("https://discord.com/api/oauth2/authorize?client_id=939124181130428457&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&response_type=code&scope=identify");
+    window.location.replace("https://discord.com/api/oauth2/authorize?client_id=939124181130428457&redirect_uri=https%3A%2F%2Fdemo-100squared.pages.dev&response_type=code&scope=identify");
   }
 
 
