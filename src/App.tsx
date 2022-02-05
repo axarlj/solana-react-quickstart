@@ -81,16 +81,13 @@ function App() {
   // Create Squares
   const squares = []
   
-  for(let iy = 0; iy < 50; iy++) {
+  for(let iy = 0; iy < 100; iy++) {
     for(let ix = 0; ix < 100; ix++) {
-      squares.push(<Square x={ix} y={iy} color="#09edb8" onclick={getLocation} func={getLocation}/>)
+      var randomColor = Math.floor(Math.random()*16777215).toString(16);
+      squares.push(<Square x={ix} y={iy} color={'#'+randomColor} onclick={getLocation} func={getLocation}/>)
     }
   }
-  for(let iy = 50; iy < 100; iy++) {
-    for(let ix = 0; ix < 100; ix++) {
-      squares.push(<Square x={ix} y={iy} color="#09edb8" func={getLocation}/>)
-    }
-  }
+  
 
 
 
